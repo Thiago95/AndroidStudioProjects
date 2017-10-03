@@ -9,7 +9,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="com.theagobueno.mmaqapp.Activitys.CadastroMaquinarioActivity">
+    tools:context="com.theagobueno.mmaqapp.Controller.CadastroMaquinarioActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -64,11 +64,6 @@
                 android:inputType="date" />
 
 
-            <Button
-                android:id="@+id/btnCadMaq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cadastrar nova máquina"/>
 
         </LinearLayout>
 

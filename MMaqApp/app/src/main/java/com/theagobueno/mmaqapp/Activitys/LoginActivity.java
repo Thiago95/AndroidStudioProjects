@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void abrirCadastroMaquinario(){
-        Intent intentAbrirTelaPrincipal = new Intent(LoginActivity.this, CadastroMaquinarioActivity.class);
+        Intent intentAbrirTelaPrincipal = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intentAbrirTelaPrincipal);
     }
 }
