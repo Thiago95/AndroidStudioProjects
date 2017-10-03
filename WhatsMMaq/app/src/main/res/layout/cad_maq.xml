@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tcc.thiag.whatsmmaq.cad_maq">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtCadMaqMarca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca"
+                android:inputType="textCapCharacters" />
+
+            <EditText
+                android:id="@+id/edtCadMaqModelo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo"
+                android:inputType="textCapCharacters" />
+
+            <EditText
+                android:id="@+id/edtCadMaqTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipo de Maquina, ex. 'Trator de Esteira'"
+                android:inputType="textCapCharacters" />
+
+            <EditText
+                android:id="@+id/edtCadMaqPotencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Potência"
+                android:inputType="textCapCharacters" />
+
+            <EditText
+                android:id="@+id/edtCadMaqDataAquisicao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Data da Compra"
+                android:inputType="date" />
+
+
+            <Button
+                android:id="@+id/btnCadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar nova máquina"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

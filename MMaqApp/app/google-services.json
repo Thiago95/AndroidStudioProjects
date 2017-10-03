@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "167233726996",
+    "firebase_url": "https://mmaqapp.firebaseio.com",
+    "project_id": "mmaqapp",
+    "storage_bucket": "mmaqapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167233726996:android:2bb948274598f8a0",
+        "android_client_info": {
+          "package_name": "com.theagobueno.mmaqapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167233726996-mu84m7e6bg49cn3qnavqip59g44frtec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theagobueno.mmaqapp",
+            "certificate_hash": "fa5ecf110c4a92c0242888060b6b490da245a472"
+          }
+        },
+        {
+          "client_id": "167233726996-aoju5i3dje3evihjb836todjsophnruv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeZC8NF2Uqj-veWTKblJNN2hqJ3tVlDzE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167233726996-aoju5i3dje3evihjb836todjsophnruv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
