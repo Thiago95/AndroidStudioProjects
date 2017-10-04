@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activitys.LoginActivity">
+        <activity android:name=".Controller.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activitys.MainActivity"
+            android:name=".Controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Controller.CadastroMaquinarioActivity" />
-        <activity android:name=".Activitys.ActvtTabMaquinario" />
-        <activity android:name=".Activitys.ActvtTabFuncionario" />
-        <activity android:name=".Activitys.ActvtTabRelatorio" />
+        <activity android:name=".Controller.ActvtTabMaquinario" />
+        <activity android:name=".Controller.ActvtTabFuncionario" />
+        <activity android:name=".Controller.ActvtTabRelatorio" />
     </application>
 
 </manifest>

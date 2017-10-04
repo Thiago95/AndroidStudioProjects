@@ -1,4 +1,4 @@
-package com.theagobueno.mmaqapp.Activitys;
+package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;

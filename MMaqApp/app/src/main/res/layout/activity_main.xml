@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
 
     android:orientation="vertical"
-    tools:context="com.theagobueno.mmaqapp.Activitys.MainActivity">
+    tools:context="com.theagobueno.mmaqapp.Controller.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

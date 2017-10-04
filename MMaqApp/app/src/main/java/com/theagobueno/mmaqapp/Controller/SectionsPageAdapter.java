@@ -1,4 +1,4 @@
-package com.theagobueno.mmaqapp.Activitys;
+package com.theagobueno.mmaqapp.Controller;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
