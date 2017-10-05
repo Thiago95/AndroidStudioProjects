@@ -1,10 +1,12 @@
 package com.theagobueno.mmaqapp.Entidades;
 
 /**
- * Created by thiag on 19/09/2017.
+ * Created by thiag on 05/10/2017.
  */
 
-public class Administrador extends Funcionario{
+public class Funcionario extends Pessoa {
+
+
 
     @Override
     public String getId() {

@@ -38,6 +38,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqPotencia = (EditText)findViewById(R.id.edtCadMaqPotencia);
         edtCadMaqValorAquisicao = (EditText)findViewById(R.id.edtCadMaqValorAquisicao);
         edtCadMaqDataAquisicao = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
+        inicializarFirebase();
 
     }
 
@@ -81,7 +82,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
                         maquinario.setValorAquisicao(Integer.parseInt(edtCadMaqValorAquisicao.getText().toString()));
                         maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
 
-                        inicializarFirebase();
                         databaseReference.child("maquinario").child(maquinario.getId()).setValue(maquinario);
 
                         Toast.makeText(CadastroMaquinarioActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
