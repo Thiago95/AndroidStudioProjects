@@ -30,7 +30,8 @@ public class ActvtTabFuncionario extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "cad funcionario", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CadastroFuncionarioActivity.class);
+                startActivity(intent);
             }
         });
 

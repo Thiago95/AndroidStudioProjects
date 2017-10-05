@@ -1,12 +1,41 @@
 package com.theagobueno.mmaqapp.Entidades;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by thiag on 05/10/2017.
  */
 
 public class Funcionario extends Pessoa {
 
+    public void salvar(){
+        DatabaseReference refereceFirebase = ConfigFirebase.getFirebase();
+        refereceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
+    }
 
+    @Exclude
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> hashMapUsuario = new HashMap<>();
+
+        hashMapUsuario.put("id", getId());
+        hashMapUsuario.put("nome", getNome());
+        hashMapUsuario.put("endereco", getEnderco());
+        hashMapUsuario.put("email", getEmail());
+        hashMapUsuario.put("senha", getSenha());
+        hashMapUsuario.put("descricao", getDescricaoHabExp());
+        hashMapUsuario.put("cpf", getCpf());
+        hashMapUsuario.put("cnh", getNmrRegistroCNH());
+        hashMapUsuario.put("data", getDataAdmissao());
+        hashMapUsuario.put("telefone", getTelefone());
+
+        return hashMapUsuario;
+    }
 
     @Override
     public String getId() {

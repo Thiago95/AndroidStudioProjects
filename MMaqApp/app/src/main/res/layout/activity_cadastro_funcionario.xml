@@ -21,47 +21,74 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edtCadMaqMarca"
+                android:id="@+id/edtCadFuncNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Marca"
+                android:hint="Nome"
                 android:inputType="textCapCharacters" />
 
             <EditText
-                android:id="@+id/edtCadMaqModelo"
+                android:id="@+id/edtCadFuncEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Modelo"
+                android:hint="Endereço"
                 android:inputType="textCapCharacters" />
 
             <EditText
-                android:id="@+id/edtCadMaqTipo"
+                android:id="@+id/edtCadFuncTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tipo de Maquina, ex. 'Trator de Esteira'"
+                android:hint="Telefone"
                 android:inputType="textCapCharacters" />
 
             <EditText
-                android:id="@+id/edtCadMaqPotencia"
+                android:id="@+id/edtCadFuncEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Potência"
-                android:inputType="textCapCharacters" />
+                android:hint="E-mail"
+                android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/edtCadMaqValorAquisicao"
+                android:id="@+id/edtCadFuncSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Valor da Compra"
-                android:inputType="textCapCharacters" />
+                android:hint="Digite a Senha"
+                android:inputType="textPassword" />
 
             <EditText
-                android:id="@+id/edtCadMaqDataAquisicao"
+                android:id="@+id/edtCadFuncConfirmaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Data da Compra"
-                android:ems="10"
+                android:hint="Confirme a Senha"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edtCadFuncCPF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Informe o CPF"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/edtCadFuncCNH"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Informe a CNH"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/edtCadFuncDataAdmissao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Data da Admissão"
                 android:inputType="date" />
+
+            <EditText
+                android:id="@+id/edtCadFuncDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Experiências/Habilidades"
+                android:inputType="textLongMessage" />
 
 
 

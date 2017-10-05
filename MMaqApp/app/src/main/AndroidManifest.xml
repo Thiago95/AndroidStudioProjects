@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_trator2_ini"
         android:label="MMaqsApp"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_trator2_ini"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Controller.LoginActivity">

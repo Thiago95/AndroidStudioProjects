@@ -59,6 +59,36 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
     }
 
+    public void cadastrarMaquina(){
+        if(!edtCadMaqMarca.getText().toString().equals("") && !edtCadMaqModelo.getText().toString().equals("")){
+            if (!edtCadMaqTipo.getText().toString().equals("") && !edtCadMaqPotencia.getText().toString().equals("")) {
+                if (!edtCadMaqValorAquisicao.getText().toString().equals("") && !edtCadMaqDataAquisicao.getText().toString().equals("")) {
+
+                    maquinario = new Maquinario();
+                    maquinario.setId(UUID.randomUUID().toString());
+                    maquinario.setMarca(edtCadMaqMarca.getText().toString());
+                    maquinario.setModelo(edtCadMaqModelo.getText().toString());
+                    maquinario.setTipoMaquina(edtCadMaqTipo.getText().toString());
+                    maquinario.setPotencia(Integer.parseInt(edtCadMaqPotencia.getText().toString()));
+                    maquinario.setValorAquisicao(Integer.parseInt(edtCadMaqValorAquisicao.getText().toString()));
+                    maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
+
+                    databaseReference.child("maquinario").child(maquinario.getId()).setValue(maquinario);
+
+                    Toast.makeText(CadastroMaquinarioActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                    limparCampos();
+
+                }else{
+                    Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Valor da Compra e/ou Data da Compra, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+                }
+            }else{
+                Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Tipo de Máquina e/ou Potência, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Marca e/ou Modelo, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -69,33 +99,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
-            if(!edtCadMaqMarca.getText().toString().equals("") && !edtCadMaqModelo.getText().toString().equals("")){
-                if (!edtCadMaqTipo.getText().toString().equals("") && !edtCadMaqPotencia.getText().toString().equals("")) {
-                    if (!edtCadMaqValorAquisicao.getText().toString().equals("") && !edtCadMaqDataAquisicao.getText().toString().equals("")) {
-
-                        maquinario = new Maquinario();
-                        maquinario.setId(UUID.randomUUID().toString());
-                        maquinario.setMarca(edtCadMaqMarca.getText().toString());
-                        maquinario.setModelo(edtCadMaqModelo.getText().toString());
-                        maquinario.setTipoMaquina(edtCadMaqTipo.getText().toString());
-                        maquinario.setPotencia(Integer.parseInt(edtCadMaqPotencia.getText().toString()));
-                        maquinario.setValorAquisicao(Integer.parseInt(edtCadMaqValorAquisicao.getText().toString()));
-                        maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
-
-                        databaseReference.child("maquinario").child(maquinario.getId()).setValue(maquinario);
-
-                        Toast.makeText(CadastroMaquinarioActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-                        limparCampos();
-
-                    }else{
-                        Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Valor da Compra e/ou Data da Compra, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
-                    }
-                }else{
-                    Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Tipo de Máquina e/ou Potência, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
-                }
-            }else{
-                Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Marca e/ou Modelo, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
-            }
+            cadastrarMaquina();
         }
         return true;
     }
