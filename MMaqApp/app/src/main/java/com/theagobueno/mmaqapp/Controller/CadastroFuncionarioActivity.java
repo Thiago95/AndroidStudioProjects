@@ -1,5 +1,6 @@
 package com.theagobueno.mmaqapp.Controller;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,7 +65,8 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
     private void limparCampos() {
         edtCadFuncNome.setText("");
-        edtCadFuncEndereco.requestFocus();
+        edtCadFuncNome.requestFocus();
+        edtCadFuncEndereco.setText("");
         edtCadFuncTelefone.setText("");
         edtCadFuncEmail.setText("");
         edtCadFuncSenha.setText("");
@@ -153,11 +155,15 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
             setDadosFuncionario();
+            abrirMain();
         }
         return true;
     }
 
-
+    private void abrirMain() {
+        Intent intent = new Intent(CadastroFuncionarioActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
 

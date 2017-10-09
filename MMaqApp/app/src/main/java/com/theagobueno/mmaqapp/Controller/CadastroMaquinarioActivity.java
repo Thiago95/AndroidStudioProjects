@@ -1,18 +1,27 @@
 package com.theagobueno.mmaqapp.Controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CadastroMaquinarioActivity extends AppCompatActivity {
@@ -24,6 +33,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     private EditText edtCadMaqValorAquisicao;
     private EditText edtCadMaqDataAquisicao;
     private Maquinario maquinario;
+
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
@@ -75,7 +85,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
 
                     databaseReference.child("maquinario").child(maquinario.getId()).setValue(maquinario);
 
-                    Toast.makeText(CadastroMaquinarioActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroMaquinarioActivity.this, "Maquinário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
                     limparCampos();
 
                 }else{
@@ -89,6 +99,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -100,7 +111,13 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
             cadastrarMaquina();
+            abrirMain();
         }
         return true;
+    }
+
+    private void abrirMain() {
+        Intent intent = new Intent(CadastroMaquinarioActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
