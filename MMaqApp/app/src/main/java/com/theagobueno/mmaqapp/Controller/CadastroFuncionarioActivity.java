@@ -88,17 +88,17 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(CadastroFuncionarioActivity.this, "Usuário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroFuncionarioActivity.this, "Funcionário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
                     String identificadorUsuario = Base64Custom.codificadorBase64(funcionario.getEmail());
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
                     funcionario.setId(identificadorUsuario);
                     funcionario.salvar();
 
-                    Preferencias preferencias = new Preferencias(CadastroFuncionarioActivity.this);
-                    preferencias.salvarUsuarioPreferencias(identificadorUsuario, funcionario.getNome());
+                   // Preferencias preferencias = new Preferencias(CadastroFuncionarioActivity.this);
+                   // preferencias.salvarUsuarioPreferencias(identificadorUsuario, funcionario.getNome());
 
-                    limparCampos();
+                    abrirMain();
 
                 }else{
 
@@ -155,7 +155,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
             setDadosFuncionario();
-            abrirMain();
+
         }
         return true;
     }

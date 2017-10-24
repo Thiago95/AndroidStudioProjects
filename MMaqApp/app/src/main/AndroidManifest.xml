@@ -25,7 +25,9 @@
         <activity android:name=".Controller.ActvtTabMaquinario" />
         <activity android:name=".Controller.ActvtTabFuncionario" />
         <activity android:name=".Controller.ActvtTabRelatorio" />
-        <activity android:name=".Controller.CadastroFuncionarioActivity"></activity>
+        <activity android:name=".Controller.CadastroFuncionarioActivity" />
+        <activity android:name=".Controller.CadastroManutencaoActivity" />
+        <activity android:name=".Controller.ActvtTabManutencao"></activity>
     </application>
 
 </manifest>

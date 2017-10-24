@@ -25,33 +25,8 @@ public class ConfigFirebase {
     public static DatabaseReference referenceFiresebase;
     public static FirebaseAuth autenticacao;
 
-    public List<String> maquinarioList = new ArrayList<>();
-    public ArrayAdapter<Maquinario> maquinarioArrayAdapter;
-
     public ConfigFirebase() {
     }
-
-
-
-   /* public void eventoListMaquinario(){
-        referenceFiresebase.child("maquinario").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                maquinarioList.clear();
-                for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
-                    Maquinario m = objDataSnapshot.getValue(Maquinario.class);
-                    maquinarioList.add(m);
-                }
-                maquinarioArrayAdapter = new ArrayAdapter<Maquinario>(this, android.R.layout.simple_list_item_1, maquinarioList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        })
-    }*/
-
 
     //TODO testando a conexao com o banco do firebase
     public static DatabaseReference getFirebase(){

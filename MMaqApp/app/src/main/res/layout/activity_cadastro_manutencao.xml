@@ -20,54 +20,63 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edtCadMaqMarca"
+            <TextView
+                android:id="@+id/txtViewCadCodMaquinario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Marca"
-                android:inputType="textCapCharacters" />
+                android:textSize="17dp"/>
 
-            <EditText
-                android:id="@+id/edtCadMaqModelo"
+            <TextView
+                android:id="@+id/txtViewCadCodFuncionario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Modelo"
-                android:inputType="textCapCharacters" />
+                android:textSize="17dp"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/edtCadMaqTipo"
+                android:id="@+id/edtCadDataAtualManutencao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tipo de Maquina, ex. 'Trator de Esteira'"
-                android:inputType="textCapCharacters" />
+                android:hint="Data atual da manutenção"
+                android:inputType="date" />
 
             <EditText
-                android:id="@+id/edtCadMaqPotencia"
+                android:id="@+id/edtCadDataProximaManutencao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Potência"
-                android:inputType="textCapCharacters" />
+                android:hint="Data próxima manutenção"
+                android:inputType="date" />
 
             <EditText
-                android:id="@+id/edtCadMaqValorAquisicao"
+                android:id="@+id/edtCadValorManutencao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Valor da Compra"
-                android:inputType="textCapCharacters" />
+                android:hint="Valor da Manutenção"
+                android:inputType="number" />
 
             <EditText
-                android:id="@+id/edtCadMaqDataAquisicao"
+                android:id="@+id/edtCadDescricaoManutencao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Data da Compra"
-                android:inputType="date" />
+                android:hint="Descrição da manutenção"
+                android:inputType="textLongMessage" />
 
 
-
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mastrar carro"
+                android:onClick="mantrarElemento"/>
         </LinearLayout>
 
     </ScrollView>
 
 
 </LinearLayout>
+

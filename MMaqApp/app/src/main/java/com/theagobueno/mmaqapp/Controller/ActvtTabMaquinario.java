@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +39,14 @@ public class ActvtTabMaquinario extends  Fragment {
         listView = (ListView) rootView.findViewById(R.id.txtViewPdr);
         eventoListMaquinario();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ActvtTabManutencao.class);
+                startActivity(intent);
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,9 +69,11 @@ public class ActvtTabMaquinario extends  Fragment {
                 List<String> maquinarioList = new ArrayList<>();
                 //ArrayAdapter<String> maquinarioArrayAdapter;
                 maquinarioList.clear();
+                int count = 1;
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     Maquinario m = objDataSnapshot.getValue(Maquinario.class);
-                    maquinarioList.add(m.getMarca() +" /// "+ m.getModelo());
+                    maquinarioList.add(count + m.getMarca() +" /// "+ m.getModelo());
+                    count++;
 
                 }
                 ArrayAdapter<String> maquinarioArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, maquinarioList);
