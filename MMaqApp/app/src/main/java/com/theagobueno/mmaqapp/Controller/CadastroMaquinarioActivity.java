@@ -1,27 +1,21 @@
 package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class CadastroMaquinarioActivity extends AppCompatActivity {
@@ -42,12 +36,12 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_maquinario);
 
-        edtCadMaqMarca = (EditText)findViewById(R.id.edtCadMaqMarca);
-        edtCadMaqModelo = (EditText)findViewById(R.id.edtCadMaqModelo);
-        edtCadMaqTipo = (EditText)findViewById(R.id.edtCadMaqTipo);
-        edtCadMaqPotencia = (EditText)findViewById(R.id.edtCadMaqPotencia);
+        edtCadMaqMarca          = (EditText)findViewById(R.id.edtCadMaqMarca);
+        edtCadMaqModelo         = (EditText)findViewById(R.id.edtCadMaqModelo);
+        edtCadMaqTipo           = (EditText)findViewById(R.id.edtCadMaqTipo);
+        edtCadMaqPotencia       = (EditText)findViewById(R.id.edtCadMaqPotencia);
         edtCadMaqValorAquisicao = (EditText)findViewById(R.id.edtCadMaqValorAquisicao);
-        edtCadMaqDataAquisicao = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
+        edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
         inicializarFirebase();
 
     }
@@ -65,8 +59,8 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
 
     public void inicializarFirebase () {
         FirebaseApp.initializeApp(CadastroMaquinarioActivity.this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        firebaseDatabase    = FirebaseDatabase.getInstance();
+        databaseReference   = firebaseDatabase.getReference();
     }
 
     public void cadastrarMaquina(){
@@ -117,6 +111,8 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         if (id == R.id.menuAdicionar){
             cadastrarMaquina();
             abrirMain();
+        }else if(id == R.id.menuEdit){
+            finish();
         }
         return true;
     }
@@ -124,5 +120,10 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     private void abrirMain() {
         Intent intent = new Intent(CadastroMaquinarioActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }

@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActvtTabFuncionario extends Fragment {
-    private static final String TAG = "ActvtTabFuncionario";
 
     private FloatingActionButton fab;
 

@@ -18,24 +18,9 @@ public class Funcionario extends Pessoa {
         refereceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
-    @Exclude
 
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> hashMapUsuario = new HashMap<>();
 
-        hashMapUsuario.put("id", getId());
-        hashMapUsuario.put("nome", getNome());
-        hashMapUsuario.put("endereco", getEnderco());
-        hashMapUsuario.put("email", getEmail());
-        hashMapUsuario.put("senha", getSenha());
-        hashMapUsuario.put("descricao", getDescricaoHabExp());
-        hashMapUsuario.put("cpf", getCpf());
-        hashMapUsuario.put("cnh", getNmrRegistroCNH());
-        hashMapUsuario.put("data", getDataAdmissao());
-        hashMapUsuario.put("telefone", getTelefone());
 
-        return hashMapUsuario;
-    }
 
     @Override
     public String getId() {

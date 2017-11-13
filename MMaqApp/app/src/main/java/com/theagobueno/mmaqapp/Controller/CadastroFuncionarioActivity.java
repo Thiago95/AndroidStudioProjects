@@ -42,7 +42,6 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
     private Funcionario funcionario;
     private FirebaseAuth autentica;
-    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +93,6 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
                     funcionario.setId(identificadorUsuario);
                     funcionario.salvar();
-
-                   // Preferencias preferencias = new Preferencias(CadastroFuncionarioActivity.this);
-                   // preferencias.salvarUsuarioPreferencias(identificadorUsuario, funcionario.getNome());
 
                     abrirMain();
 

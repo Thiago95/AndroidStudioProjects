@@ -20,8 +20,6 @@ import java.util.List;
  */
 
 public class ConfigFirebase {
-    public String userId;
-
     public static DatabaseReference referenceFiresebase;
     public static FirebaseAuth autenticacao;
 
