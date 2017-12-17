@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
@@ -26,10 +27,8 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     private EditText edtCadMaqPotencia;
     private EditText edtCadMaqValorAquisicao;
     private EditText edtCadMaqDataAquisicao;
-    private Maquinario maquinario;
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private Maquinario maquinario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +40,10 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqTipo           = (EditText)findViewById(R.id.edtCadMaqTipo);
         edtCadMaqPotencia       = (EditText)findViewById(R.id.edtCadMaqPotencia);
         edtCadMaqValorAquisicao = (EditText)findViewById(R.id.edtCadMaqValorAquisicao);
-        edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
-        inicializarFirebase();
-
+        edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);;
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
         edtCadMaqMarca.setText("");
         edtCadMaqMarca.requestFocus();
         edtCadMaqModelo.setText("");
@@ -54,13 +51,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqPotencia.setText("");
         edtCadMaqValorAquisicao.setText("");
         edtCadMaqDataAquisicao.setText("");
-    }
-
-
-    public void inicializarFirebase () {
-        FirebaseApp.initializeApp(CadastroMaquinarioActivity.this);
-        firebaseDatabase    = FirebaseDatabase.getInstance();
-        databaseReference   = firebaseDatabase.getReference();
     }
 
     public void cadastrarMaquina(){
@@ -78,7 +68,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
                         maquinario.setValorAquisicao(Integer.parseInt(edtCadMaqValorAquisicao.getText().toString()));
                         maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
 
-                        databaseReference.child("maquinario").child(maquinario.getId()).setValue(maquinario);
+                        maquinario.salvar();
 
                         Toast.makeText(CadastroMaquinarioActivity.this, "Maquinário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
                         limparCampos();
@@ -98,7 +88,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -117,7 +106,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         return true;
     }
 
-    private void abrirMain() {
+    public void abrirMain() {
         Intent intent = new Intent(CadastroMaquinarioActivity.this, MainActivity.class);
         startActivity(intent);
     }

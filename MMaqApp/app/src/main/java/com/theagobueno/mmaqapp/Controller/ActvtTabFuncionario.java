@@ -37,7 +37,7 @@ public class ActvtTabFuncionario extends Fragment {
         View rootView = inflater.inflate(R.layout.actvt_tab_funcionario, container, false);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         listView = (ListView) rootView.findViewById(R.id.txtViewPdr);
-        eventoListMaquinario();
+        eventoListFuncionario();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +49,7 @@ public class ActvtTabFuncionario extends Fragment {
         return rootView;
     }
 
-    public void eventoListMaquinario(){
+    public void eventoListFuncionario(){
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -62,6 +62,7 @@ public class ActvtTabFuncionario extends Fragment {
                 fincioraioList.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     Funcionario f = objDataSnapshot.getValue(Funcionario.class);
+
                     fincioraioList.add(f.getNome());
 
                 }

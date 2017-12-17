@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.theagobueno.mmaqapp.Entidades.Manutencao;
+import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ActvtTabManutencao extends AppCompatActivity {
         setContentView(R.layout.actvt_tab_manutencao);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         listView = (ListView) findViewById(R.id.txtViewPdr);
-        eventoListMaquinario();
+        eventoListManutencao();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,21 +42,37 @@ public class ActvtTabManutencao extends AppCompatActivity {
         });
     }
 
-
-
-    public void eventoListMaquinario(){
+    public void eventoListManutencao(){
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+        databaseReference.child("maquinario").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> maquinarioList = new ArrayList<>();
+                maquinarioList.clear();
+                for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
+                    Maquinario m = objDataSnapshot.getValue(Maquinario.class);
+                    maquinarioList.add(m.getId()+m.getModelo()+m.getMarca()+m.getTipoMaquina()+m.getPotencia()+m.getValorAquisicao()+m.getDataAquisicao());
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         databaseReference.child("manutencao").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> manutencaoList = new ArrayList<>();
-                //ArrayAdapter<String> maquinarioArrayAdapter;
                 manutencaoList.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     Manutencao m = objDataSnapshot.getValue(Manutencao.class);
+                    
                     manutencaoList.add(m.getDataAtualManutencao() +" - "+ m.getCustoManutencao()+" - "+m.getIdFuncionario());
 
                 }

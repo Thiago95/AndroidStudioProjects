@@ -17,15 +17,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Funcionario;
 import com.theagobueno.mmaqapp.Helper.Base64Custom;
-import com.theagobueno.mmaqapp.Helper.Preferencias;
 import com.theagobueno.mmaqapp.R;
-
-import java.util.UUID;
 
 public class CadastroFuncionarioActivity extends AppCompatActivity {
 
@@ -61,7 +56,6 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
     }
 
-
     private void limparCampos() {
         edtCadFuncNome.setText("");
         edtCadFuncNome.requestFocus();
@@ -87,12 +81,14 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(CadastroFuncionarioActivity.this, "Funcionário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
+
 
                     String identificadorUsuario = Base64Custom.codificadorBase64(funcionario.getEmail());
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
                     funcionario.setId(identificadorUsuario);
                     funcionario.salvar();
+
+                    Toast.makeText(CadastroFuncionarioActivity.this, "Funcionário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
 
                     abrirMain();
 
@@ -137,8 +133,6 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             cadastrarFuncionario();
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

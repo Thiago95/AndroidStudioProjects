@@ -17,22 +17,9 @@ public class Maquinario {
     private String id, marca, modelo, tipoMaquina, dataAquisicao;
     private int potencia, valorAquisicao;
 
-    @Exclude
-
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> hashMapMaquina = new HashMap<>();
-
-        hashMapMaquina.put("id_maq", getId());
-        hashMapMaquina.put("marca_maq", getMarca());
-        hashMapMaquina.put("modelo_maq", getModelo());
-        hashMapMaquina.put("tipoMaquina", getTipoMaquina());
-        hashMapMaquina.put("potencia_maq", getPotencia());
-        hashMapMaquina.put("valorAquisicao_maq", getValorAquisicao());
-        hashMapMaquina.put("dataAquisicaod_maq", getDataAquisicao());
-
-        return hashMapMaquina;
-
-    }
+    public void salvar(){
+        DatabaseReference refereceFirebase = ConfigFirebase.getFirebase();
+        refereceFirebase.child("maquinario").child(getId()).setValue(this);    }
 
     public int getValorAquisicao() {
         return valorAquisicao;

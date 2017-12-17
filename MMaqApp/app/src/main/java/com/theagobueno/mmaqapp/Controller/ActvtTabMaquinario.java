@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActvtTabMaquinario extends  Fragment {
-    private static final String TAG = "ActvtTabMaquinario";
 
     private ListView listView;
     private FloatingActionButton fab;

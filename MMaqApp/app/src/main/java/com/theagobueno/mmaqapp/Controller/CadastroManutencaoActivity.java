@@ -39,6 +39,7 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_manutencao);
+
         txtViewCadCodMaquinario = (TextView)findViewById(R.id.txtViewCadCodMaquinario);
         txtViewCadCodMaquinario.setText("testeMaq1");
         txtViewCadCodFuncionario = (TextView)findViewById(R.id.txtViewCadCodFuncionario);
@@ -68,7 +69,7 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
         inicializaFirebase();
     }
 
-    private void cadastrarManutencao() {
+    public void cadastrarManutencao() {
         try{
             if(!txtViewCadCodMaquinario.getText().toString().equals("") && !txtViewCadCodFuncionario.getText().toString().equals("")){
                 if (!edtCadDataAtualManutencao.getText().toString().equals("") && !edtCadDataProximaManutencao.getText().toString().equals("")) {
@@ -102,14 +103,14 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
         }
     }
 
-    private void limparCampos() {
+    public void limparCampos() {
         edtCadDataAtualManutencao.setText("");
         edtCadDataProximaManutencao.setText("");
         edtCadValorManutencao.setText("");
         edtCadDescricaoManutencao.setText("");
     }
 
-    private void inicializaFirebase() {
+    public void inicializaFirebase() {
         FirebaseApp.initializeApp(CadastroManutencaoActivity.this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -139,7 +140,7 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
         return true;
     }
 
-    private void abrirMain() {
+    public void abrirMain() {
         Intent intent = new Intent(CadastroManutencaoActivity.this, MainActivity.class);
         startActivity(intent);
     }
