@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Administrador;
+import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,6 +25,23 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnEntrar;
     private FirebaseAuth autenticacao;
     private Administrador administrador;
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            if (!EstadoApp.getSingleInstance().isLoggingOut()) {
+                finish();
+            } else {
+                EstadoApp.getSingleInstance().setLoggingOut(false);
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,5 +97,6 @@ public class LoginActivity extends AppCompatActivity {
     public void abrirCadastroMaquinario(){
         Intent intentAbrirTelaPrincipal = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intentAbrirTelaPrincipal);
+        finish();
     }
 }

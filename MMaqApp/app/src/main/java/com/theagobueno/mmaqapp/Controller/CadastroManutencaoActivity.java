@@ -1,6 +1,7 @@
 package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.theagobueno.mmaqapp.Entidades.Manutencao;
+import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
 import java.util.UUID;
@@ -90,16 +92,16 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
                         limparCampos();
 
                     }else{
-                        Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos, Valor da Compra e/ou Data da Compra, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos, Tipo de Máquina e/ou Potência, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
                 }
             }else{
-                Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos, Marca e/ou Modelo, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
             }
         }catch (Exception e){
-            Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos se os campos foram preenchidos corretamente!", Toast.LENGTH_LONG).show();
+            Toast.makeText(CadastroManutencaoActivity.this, "Verfique se os campos foram preenchidos corretamente!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -133,9 +135,24 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.menuAdicionar){
             cadastrarManutencao();
             abrirMain();
+            finish();
+        }else if(id == R.id.menuSair){
+            SharedPreferences myPrefs = getSharedPreferences("MY", MODE_PRIVATE);
+            SharedPreferences.Editor editor = myPrefs.edit();
+            editor.clear();
+            editor.commit();
+            EstadoApp.getSingleInstance().setLoggingOut(true);
+            Intent intent = new Intent(CadastroManutencaoActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+            //Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
+
         }
         return true;
     }

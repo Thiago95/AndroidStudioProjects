@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class ActvtTabFuncionario extends Fragment {
     private FloatingActionButton fab;
 
     private ListView listView;
+    private Funcionario f;
 
     @Nullable
     @Override
@@ -38,6 +40,19 @@ public class ActvtTabFuncionario extends Fragment {
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         listView = (ListView) rootView.findViewById(R.id.txtViewPdr);
         eventoListFuncionario();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), DlgFunc.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("nome", f.getNome());
+                intent.putExtras(bundle);
+
+                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), DlgFunc.class);
+                //startActivity(intent);
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +76,7 @@ public class ActvtTabFuncionario extends Fragment {
                 //ArrayAdapter<String> maquinarioArrayAdapter;
                 fincioraioList.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
-                    Funcionario f = objDataSnapshot.getValue(Funcionario.class);
+                    f = objDataSnapshot.getValue(Funcionario.class);
 
                     fincioraioList.add(f.getNome());
 

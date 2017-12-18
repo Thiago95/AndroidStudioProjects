@@ -1,6 +1,7 @@
 package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
+import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
 import java.util.UUID;
@@ -100,11 +102,24 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         if (id == R.id.menuAdicionar){
             cadastrarMaquina();
             abrirMain();
-        }else if(id == R.id.menuEdit){
             finish();
+        }else if(id == R.id.menuSair){
+            SharedPreferences myPrefs = getSharedPreferences("MY", MODE_PRIVATE);
+            SharedPreferences.Editor editor = myPrefs.edit();
+            editor.clear();
+            editor.commit();
+            EstadoApp.getSingleInstance().setLoggingOut(true);
+            Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+            //Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
+
         }
         return true;
     }
+
 
     public void abrirMain() {
         Intent intent = new Intent(CadastroMaquinarioActivity.this, MainActivity.class);

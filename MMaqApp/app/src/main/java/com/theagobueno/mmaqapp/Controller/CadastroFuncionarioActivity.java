@@ -1,6 +1,7 @@
 package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Funcionario;
 import com.theagobueno.mmaqapp.Helper.Base64Custom;
+import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
 public class CadastroFuncionarioActivity extends AppCompatActivity {
@@ -144,7 +146,20 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
-            setDadosFuncionario();
+            setDadosFuncionario();;
+            finish();
+        }else if(id == R.id.menuSair){
+            SharedPreferences myPrefs = getSharedPreferences("MY", MODE_PRIVATE);
+            SharedPreferences.Editor editor = myPrefs.edit();
+            editor.clear();
+            editor.commit();
+            EstadoApp.getSingleInstance().setLoggingOut(true);
+            Intent intent = new Intent(CadastroFuncionarioActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+            //Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
 
         }
         return true;
@@ -153,6 +168,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
     private void abrirMain() {
         Intent intent = new Intent(CadastroFuncionarioActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
