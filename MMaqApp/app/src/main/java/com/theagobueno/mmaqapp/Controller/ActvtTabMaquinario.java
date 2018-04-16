@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theagobueno.mmaqapp.Entidades.Manutencao;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
@@ -29,6 +31,8 @@ public class ActvtTabMaquinario extends  Fragment {
     private FloatingActionButton fab;
     private Maquinario m;
     List<String> maquinarioList = new ArrayList<>();
+    List<String> maquinario = new ArrayList<>();
+    List<String> listMarcaModelo = new ArrayList<>();
     List<String> listMaq = new ArrayList<>();
 
     @Nullable
@@ -38,39 +42,29 @@ public class ActvtTabMaquinario extends  Fragment {
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         listView = (ListView) rootView.findViewById(R.id.txtViewPdr);
         eventoListMaquinario();
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
 
-                Intent intent = new Intent(getActivity(), DlgMaqui.class);
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("list", new ArrayList<String>(listMaq));
-                bundle.putString("marca",m.getMarca());
-                bundle.putString("modelo",m.getModelo());
-                bundle.putInt("potencia",m.getPotencia());
-                bundle.putInt("valor",m.getValorAquisicao());
-                bundle.putInt("asd", i);
-                bundle.putLong("long", l);
+                bundle.putString("id",listMaq.get(i));
+                bundle.putString("marca",listMarcaModelo.get(i));
+                Intent intent = new Intent(getActivity(), ActvtTabManutencao.class);
                 intent.putExtras(bundle);
-
                 startActivity(intent);
-
-
-                //Intent intent = new Intent(getActivity(), DlgMaqui.class);
-                //startActivity(intent);
                 return true;
             }
         });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), ActvtTabManutencao.class);
+                Intent intent = new Intent(getActivity(), DlgMaqui.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",listMaq.get(i));
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
-        });
-
+        });*/
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,12 +72,8 @@ public class ActvtTabMaquinario extends  Fragment {
                 startActivity(intent);
             }
         });
-
         return rootView;
     }
-
-
-
     public void eventoListMaquinario(){
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
@@ -94,33 +84,26 @@ public class ActvtTabMaquinario extends  Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 maquinarioList.clear();
                 listMaq.clear();
-                String temp;
-                String temp2;
+                listMarcaModelo.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     m = objDataSnapshot.getValue(Maquinario.class);
                     maquinarioList.add(m.getMarca() +" /// "+ m.getModelo());
-                    listMaq.add(m.getMarca());
-                    listMaq.add(m.getModelo());
-                    temp = "" + m.getPotencia();
-                    listMaq.add(temp);
-                    temp2 = "" + m.getValorAquisicao();
-                    listMaq.add(temp2);
-
-
+                    maquinario.add(m.getMarca());
+                    maquinario.add(m.getModelo());
+                    maquinario.add(m.getTipoMaquina());
+                    maquinario.add(String.valueOf(m.getPotencia()));
+                    maquinario.add(m.getValorAquisicao());
+                    maquinario.add(m.getDataAquisicao());
+                    listMaq.add(m.getId());
+                    listMarcaModelo.add(m.getMarca() + " /// " + m.getModelo() );
                 }
                 ArrayAdapter<String> maquinarioArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, maquinarioList);
-
                 listView.setAdapter(maquinarioArrayAdapter);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
-
-
-
-
 }

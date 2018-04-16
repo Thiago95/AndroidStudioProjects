@@ -18,10 +18,6 @@ public class Funcionario extends Pessoa {
         refereceFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
-
-
-
-
     @Override
     public String getId() {
         return super.getId();
@@ -93,22 +89,22 @@ public class Funcionario extends Pessoa {
     }
 
     @Override
-    public int getCpf() {
+    public String getCpf() {
         return super.getCpf();
     }
 
     @Override
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         super.setCpf(cpf);
     }
 
     @Override
-    public int getNmrRegistroCNH() {
+    public String getNmrRegistroCNH() {
         return super.getNmrRegistroCNH();
     }
 
     @Override
-    public void setNmrRegistroCNH(int nmrRegistroCNH) {
+    public void setNmrRegistroCNH(String nmrRegistroCNH) {
         super.setNmrRegistroCNH(nmrRegistroCNH);
     }
 
@@ -123,12 +119,12 @@ public class Funcionario extends Pessoa {
     }
 
     @Override
-    public int getTelefone() {
+    public String getTelefone() {
         return super.getTelefone();
     }
 
     @Override
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         super.setTelefone(telefone);
     }
 }

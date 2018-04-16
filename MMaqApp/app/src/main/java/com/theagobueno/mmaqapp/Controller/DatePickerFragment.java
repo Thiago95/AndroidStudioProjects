@@ -1,35 +1,109 @@
 package com.theagobueno.mmaqapp.Controller;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.widget.DatePicker;
-import android.widget.Toast;
 
-import java.util.Calendar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
-class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+/**
+ * Created by thiag on 03/10/2017.
+ */
 
-        // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+public class DatePickerFragment implements TextWatcher{
+
+    //TODO mascara para data
+    public static TextWatcher insert(final String mask, final EditText et) {
+        return new TextWatcher() {
+            boolean isUpdating;
+            String oldTxt = "";
+            public void onTextChanged(
+                    CharSequence s, int start, int before,int count) {
+                String str = DatePickerFragment.unmask(s.toString());
+                String maskCurrent = "";
+                if (isUpdating) {
+                    oldTxt = str;
+                    isUpdating = false;
+                    return;
+                }
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if (m != '#' && str.length() > oldTxt.length()) {
+                        maskCurrent += m;
+                        continue;
+                    }
+                    try {
+                        maskCurrent += str.charAt(i);
+                    } catch (Exception e) {
+                        break;
+                    }
+                    i++;
+                }
+                isUpdating = true;
+                et.setText(maskCurrent);
+                et.setSelection(maskCurrent.length());
+            }
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {}
+        };
+    }
+    private static String unmask(String s) {
+        return s.replaceAll("[.]", "").replaceAll("[-]", "")
+                .replaceAll("[/]", "").replaceAll("[(]", "")
+                .replaceAll("[)]", "");
     }
 
+    //TODO mascara para moeda
+    private final WeakReference<EditText> editTextWeakReference;
+    private final Locale locale;
 
+    public DatePickerFragment(EditText editText, Locale locale) {
+        this.editTextWeakReference = new WeakReference<EditText>(editText);
+        this.locale = locale != null ? locale : Locale.getDefault();
+    }
+
+    public DatePickerFragment(EditText editText) {
+        this.editTextWeakReference = new WeakReference<EditText>(editText);
+        this.locale = Locale.getDefault();
+    }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        String data = String.valueOf(dayOfMonth) + " /"
-                + String.valueOf(monthOfYear+1) + " /" + String.valueOf(year);
-        Toast.makeText(getActivity(), "DATA = " + data, Toast.LENGTH_SHORT).show();
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
     }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        EditText editText = editTextWeakReference.get();
+        if (editText == null) return;
+        editText.removeTextChangedListener(this);
+
+        BigDecimal parsed = parseToBigDecimal(editable.toString(), locale);
+        String formatted = NumberFormat.getCurrencyInstance(locale).format(parsed);
+
+        editText.setText(formatted);
+        editText.setSelection(formatted.length());
+        editText.addTextChangedListener(this);
+    }
+
+    private BigDecimal parseToBigDecimal(String value, Locale locale) {
+        String replaceable = String.format("[%s,.\\s]", NumberFormat.getCurrencyInstance(locale).getCurrency().getSymbol());
+
+        String cleanString = value.replaceAll(replaceable, "");
+
+        return new BigDecimal(cleanString).setScale(
+                2, BigDecimal.ROUND_FLOOR).divide(new BigDecimal(100), BigDecimal.ROUND_FLOOR
+        );
+    }
+
 }

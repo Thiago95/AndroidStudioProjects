@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MMaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_trator2_ini"
         android:label="MMaqsApp"
@@ -18,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Controller.Progress" />
         <activity
             android:name=".Controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -30,7 +32,8 @@
         <activity android:name=".Controller.ActvtTabManutencao" />
         <activity android:name=".Controller.DlgMaqui" />
         <activity android:name=".Controller.DlgFunc" />
-        <activity android:name=".DlgManu"></activity>
+        <activity android:name=".Controller.DlgManu" />
+        <activity android:name=".Controller.MostraDados"></activity>
     </application>
 
 </manifest>

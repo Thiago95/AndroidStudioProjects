@@ -73,7 +73,8 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
     }
 
-    public void cadastrarFuncionario(){
+    public void
+    cadastrarFuncionario(){
 
         autentica = ConfigFirebase.getFirebaseAutenticacao();
         autentica.createUserWithEmailAndPassword(
@@ -83,8 +84,6 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-
-
                     String identificadorUsuario = Base64Custom.codificadorBase64(funcionario.getEmail());
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
                     funcionario.setId(identificadorUsuario);
@@ -124,11 +123,11 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             funcionario = new Funcionario();
             funcionario.setNome(edtCadFuncNome.getText().toString());
             funcionario.setEnderco(edtCadFuncEndereco.getText().toString());
-            funcionario.setTelefone(Integer.parseInt(edtCadFuncTelefone.getText().toString()));
+            funcionario.setTelefone(edtCadFuncTelefone.getText().toString());
             funcionario.setEmail(edtCadFuncEmail.getText().toString());
             funcionario.setSenha(edtCadFuncSenha.getText().toString());
-            funcionario.setCpf(Integer.parseInt(edtCadFuncCPF.getText().toString()));
-            funcionario.setNmrRegistroCNH(Integer.parseInt(edtCadFuncCNH.getText().toString()));
+            funcionario.setCpf(edtCadFuncCPF.getText().toString());
+            funcionario.setNmrRegistroCNH(edtCadFuncCNH.getText().toString());
             funcionario.setDataAdmissao(edtCadFuncDataAdmissao.getText().toString());
             funcionario.setDescricaoHabExp(edtCadFuncDescricao.getText().toString());
 

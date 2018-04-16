@@ -44,22 +44,24 @@
                 android:id="@+id/edtCadMaqPotencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Potência"
-                android:inputType="textCapCharacters" />
+                android:hint="Potência em cv"
+                android:inputType="number"
+                android:digits="012345678989"/>
 
             <EditText
                 android:id="@+id/edtCadMaqValorAquisicao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Valor da Compra"
-                android:inputType="textCapCharacters" />
+                android:inputType="numberDecimal"
+                android:digits="01234567898,,."/>
 
             <EditText
                 android:id="@+id/edtCadMaqDataAquisicao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Data da Compra"
-                android:onClick="showDatePickerDialog" />
+                android:inputType="date" />
 
 
         </LinearLayout>

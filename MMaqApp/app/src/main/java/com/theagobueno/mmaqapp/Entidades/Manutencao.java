@@ -8,11 +8,10 @@ public class Manutencao {
 
     private String idManutencao;
     private String idMaquinario;
-    private String idFuncionario;
     private String tipoManutencao;
     private String dataAtualManutencao;
     private String dataProximaMatencao;
-    private int custoManutencao;
+    private String custoManutencao;
     private String descriocaoManutencao;
 
     public String getIdManutencao() {
@@ -29,14 +28,6 @@ public class Manutencao {
 
     public void setIdMaquinario(String idMaquinario) {
         this.idMaquinario = idMaquinario;
-    }
-
-    public String getIdFuncionario() {
-        return idFuncionario;
-    }
-
-    public void setIdFuncionario(String idFuncionario) {
-        this.idFuncionario = idFuncionario;
     }
 
     public String getTipoManutencao() {
@@ -63,11 +54,11 @@ public class Manutencao {
         this.dataProximaMatencao = dataProximaMatencao;
     }
 
-    public int getCustoManutencao() {
+    public String getCustoManutencao() {
         return custoManutencao;
     }
 
-    public void setCustoManutencao(int custoManutencao) {
+    public void setCustoManutencao(String custoManutencao) {
         this.custoManutencao = custoManutencao;
     }
 

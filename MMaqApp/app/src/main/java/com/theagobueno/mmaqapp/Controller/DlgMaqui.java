@@ -15,6 +15,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
@@ -39,41 +44,48 @@ public class DlgMaqui extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.txtViewPdr);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        int nmr = bundle.getInt("asd");
-        long lng = bundle.getLong("long");
-        String marca = bundle.getString("marca");
-        String modelo = bundle.getString("modelo");
-        int potencia = bundle.getInt("potencia");
-        int valor = bundle.getInt("valor");
-        listMaq.clear();
-        listMaq.add(marca);
-        listMaq.add(modelo);
-        temp = ""+potencia;
-        listMaq.add(temp);
-        temp2 = ""+valor;
-        listMaq.add(temp2);
+        final String id = bundle.getString("id");
+        eventoListMaquinario(id);
 
-        //ArrayList arrayList = bundle.getStringArrayList("list");
-        ArrayAdapter<String> listMaqAdapter = new ArrayAdapter<String>(DlgMaqui.this, android.R.layout.simple_list_item_1, listMaq);
-        listView.setAdapter(listMaqAdapter);
+        //TextView txtResultado = (TextView) findViewById(R.id.txtResultado);
 
-        TextView txtResultado = (TextView) findViewById(R.id.txtResultado);
-
-        txtResultado.setText(nmr+" | "+marca);
-
-       // eventoListMaquinario();
-
-
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 inputDialog(i);
-                return true;
+            }
+        });*/
+
+
+    }
+
+    private void eventoListMaquinario(String i) {
+
+        FirebaseDatabase firebaseDatabase;
+        DatabaseReference databaseReference;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference.child("maquinario").child(i).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                maquinarioList.clear();
+                for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
+                    m = objDataSnapshot.getValue(Maquinario.class);
+                    maquinarioList.add(m.getMarca());
+                    maquinarioList.add(m.getModelo());
+                    maquinarioList.add(m.getTipoMaquina());
+                    maquinarioList.add(String.valueOf(m.getPotencia()));
+                    maquinarioList.add(m.getValorAquisicao());
+                    maquinarioList.add(m.getDataAquisicao());
+                }
+                ArrayAdapter<String> listMaqAdapter = new ArrayAdapter<String>(DlgMaqui.this, android.R.layout.simple_list_item_1, maquinarioList);
+                listView.setAdapter(listMaqAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
-
-
     }
 
     private void inputDialog(final int posicao) {

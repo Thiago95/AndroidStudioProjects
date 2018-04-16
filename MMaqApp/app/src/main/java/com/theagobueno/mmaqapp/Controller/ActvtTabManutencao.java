@@ -2,21 +2,21 @@ package com.theagobueno.mmaqapp.Controller;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.theagobueno.mmaqapp.DlgManu;
 import com.theagobueno.mmaqapp.Entidades.Manutencao;
-import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
 import java.util.ArrayList;
@@ -27,15 +27,41 @@ public class ActvtTabManutencao extends AppCompatActivity {
     private FloatingActionButton fab;
     List<String> manutencaoList = new ArrayList<>();
     private ListView listView;
+    List<String> listMaq = new ArrayList<>();
+    List<String> listMan = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvt_tab_manutencao);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        final String id = bundle.getString("id");
+        final String marca = bundle.getString("marca");
         listView = (ListView) findViewById(R.id.txtViewPdr);
-        eventoListManutencao();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        selecionaMaqnutencao(id);
+        ArrayAdapter<String> maquinarioArrayAdapter = new ArrayAdapter<String>(ActvtTabManutencao.this, android.R.layout.simple_list_item_1, manutencaoList);
+        listView.setAdapter(maquinarioArrayAdapter);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActvtTabManutencao.this, CadastroManutencaoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",id);
+                bundle.putString("marca",marca);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
+
+        /*listView = (ListView) findViewById(R.id.txtViewPdr);
+
+        ArrayAdapter<String> listMaqAdapter = new ArrayAdapter<String>(ActvtTabManutencao.this, android.R.layout.simple_list_item_1, listMaq);
+        listView.setAdapter(listMaqAdapter);
+        //eventoListManutencao();
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                /* Intent intent = new Intent(ActvtTabManutencao.this, DlgManu.class);
@@ -43,37 +69,31 @@ public class ActvtTabManutencao extends AppCompatActivity {
 
                 intent.putExtras(bundle);
 
-                startActivity(intent);*/
+                startActivity(intent);
                 Intent intent = new Intent(ActvtTabManutencao.this, DlgManu.class);
                 startActivity(intent);
             }
-        });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActvtTabManutencao.this, CadastroManutencaoActivity.class);
-                startActivity(intent);
-            }
-        });
+        });*/
+
     }
 
-    public void eventoListManutencao(){
+    private void selecionaMaqnutencao(String i) {
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        databaseReference.child("manutencao").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("maquinario").child(i).child("manutencao").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 manutencaoList.clear();
+                listMan.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
-                    Manutencao m = objDataSnapshot.getValue(Manutencao.class);
-                    
-                    manutencaoList.add(m.getDataAtualManutencao() +" - "+ m.getCustoManutencao()+" - "+m.getIdFuncionario());
+                    Manutencao man = objDataSnapshot.getValue(Manutencao.class);
+
+                    manutencaoList.add("--------------\n"+man.getDataAtualManutencao() +" - "+ man.getCustoManutencao()+"\n"+man.getIdMaquinario()+"\n--------------");
+                    listMan.add(man.getIdManutencao());
 
                 }
-                ArrayAdapter<String> manutencaoArrayAdapter = new ArrayAdapter<String>(ActvtTabManutencao.this, android.R.layout.simple_list_item_1, manutencaoList);
-                listView.setAdapter(manutencaoArrayAdapter);
             }
 
             @Override

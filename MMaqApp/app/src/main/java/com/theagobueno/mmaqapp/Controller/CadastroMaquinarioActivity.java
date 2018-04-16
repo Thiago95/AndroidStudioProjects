@@ -1,10 +1,13 @@
 package com.theagobueno.mmaqapp.Controller;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,30 +22,40 @@ import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class CadastroMaquinarioActivity extends AppCompatActivity {
 
-    private EditText edtCadMaqMarca;
-    private EditText edtCadMaqModelo;
-    private EditText edtCadMaqTipo;
-    private EditText edtCadMaqPotencia;
-    private EditText edtCadMaqValorAquisicao;
-    private EditText edtCadMaqDataAquisicao;
+    public EditText edtCadMaqMarca;
+    public EditText edtCadMaqModelo;
+    public EditText edtCadMaqTipo;
+    public EditText edtCadMaqPotencia;
+    public EditText edtCadMaqValorAquisicao;
+    public EditText edtCadMaqDataAquisicao;
 
     private Maquinario maquinario;
+    private DatePickerFragment maskDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_maquinario);
-
+        Locale mLocale = new Locale("pt", "BR");
         edtCadMaqMarca          = (EditText)findViewById(R.id.edtCadMaqMarca);
         edtCadMaqModelo         = (EditText)findViewById(R.id.edtCadMaqModelo);
         edtCadMaqTipo           = (EditText)findViewById(R.id.edtCadMaqTipo);
         edtCadMaqPotencia       = (EditText)findViewById(R.id.edtCadMaqPotencia);
         edtCadMaqValorAquisicao = (EditText)findViewById(R.id.edtCadMaqValorAquisicao);
-        edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);;
+
+        edtCadMaqValorAquisicao.addTextChangedListener(new DatePickerFragment(edtCadMaqValorAquisicao, mLocale));
+        edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
+        edtCadMaqDataAquisicao.addTextChangedListener(maskDate.insert("##/##/####", edtCadMaqDataAquisicao));
     }
 
     public void limparCampos() {
@@ -55,39 +68,81 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqDataAquisicao.setText("");
     }
 
-    public void cadastrarMaquina(){
+    public void validaCampos() throws ParseException {
+
         try{
-            if(!edtCadMaqMarca.getText().toString().equals("") && !edtCadMaqModelo.getText().toString().equals("")){
-                if (!edtCadMaqTipo.getText().toString().equals("") && !edtCadMaqPotencia.getText().toString().equals("")) {
-                    if (!edtCadMaqValorAquisicao.getText().toString().equals("") && !edtCadMaqDataAquisicao.getText().toString().equals("")) {
-
-                        maquinario = new Maquinario();
-                        maquinario.setId(UUID.randomUUID().toString());
-                        maquinario.setMarca(edtCadMaqMarca.getText().toString());
-                        maquinario.setModelo(edtCadMaqModelo.getText().toString());
-                        maquinario.setTipoMaquina(edtCadMaqTipo.getText().toString());
-                        maquinario.setPotencia(Integer.parseInt(edtCadMaqPotencia.getText().toString()));
-                        maquinario.setValorAquisicao(Integer.parseInt(edtCadMaqValorAquisicao.getText().toString()));
-                        maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
-
-                        maquinario.salvar();
-
-                        Toast.makeText(CadastroMaquinarioActivity.this, "Maquinário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
-                        limparCampos();
-
-                    }else{
-                        Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Valor da Compra e/ou Data da Compra, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
-                    }
-                }else{
-                    Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Tipo de Máquina e/ou Potência, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
-                }
+            boolean res = false;
+            String marca = edtCadMaqMarca.getText().toString();
+            String modelo = edtCadMaqModelo.getText().toString();
+            String tipo = edtCadMaqTipo.getText().toString();
+            String potencia = edtCadMaqPotencia.getText().toString();
+            String valor = edtCadMaqValorAquisicao.getText().toString();
+            String data = edtCadMaqDataAquisicao.getText().toString();
+            if(res = isValidaCampoString(marca)) {
+                edtCadMaqMarca.requestFocus();
+            }else if (res = isValidaCampoString(modelo)) {
+                edtCadMaqModelo.requestFocus();
+            }else if (res = isValidaCampoString(tipo)) {
+                edtCadMaqTipo.requestFocus();
+            }else if (res = isValidaCampoString(potencia)) {
+                edtCadMaqPotencia.requestFocus();
+            }else if (res = isValidaCampoString(valor)) {
+                edtCadMaqValorAquisicao.requestFocus();
+            }else if (res = !isValidaData(data)) {
+                edtCadMaqDataAquisicao.requestFocus();
+            }
+            if (res){
+                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("Aviso");
+                dlg.setMessage("Verfique se os campos estão preenchidos corretamente!");
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
             }else{
-                Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos, Marca e/ou Modelo, estão preenchidos corretamente!", Toast.LENGTH_LONG).show();
+                cadMaquina();
             }
         }catch (Exception e){
-            Toast.makeText(CadastroMaquinarioActivity.this, "Verfique se os campos se os campos foram preenchidos corretamente!", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Aviso");
+            dlg.setMessage("Retire os pontos e/ou virgulas do valor da compra!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+            edtCadMaqValorAquisicao.requestFocus();
         }
 
+
+    }
+
+    private boolean isValidaCampoString(String valor){
+        boolean result = (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+        return result;
+    }
+
+
+
+    private boolean isValidaData(String data) throws ParseException {
+        boolean var = false;
+        Date dtAtual = new Date();
+        Date dtInserida = new SimpleDateFormat("dd/mm/yyyy").parse(data);
+        if (dtInserida.before(dtAtual)) {
+            var = true;
+        }
+
+        return var;
+    }
+
+    public void cadMaquina(){
+        maquinario = new Maquinario();
+        maquinario.setId(UUID.randomUUID().toString());
+        maquinario.setMarca(edtCadMaqMarca.getText().toString());
+        maquinario.setModelo(edtCadMaqModelo.getText().toString());
+        maquinario.setTipoMaquina(edtCadMaqTipo.getText().toString());
+        maquinario.setPotencia(Integer.parseInt(edtCadMaqPotencia.getText().toString()));
+        maquinario.setValorAquisicao(edtCadMaqValorAquisicao.getText().toString());
+        maquinario.setDataAquisicao(edtCadMaqDataAquisicao.getText().toString());
+
+        maquinario.salvar();
+        abrirMain();
+        Toast.makeText(CadastroMaquinarioActivity.this, "Maquinário cadastrado com sucesso!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -100,9 +155,18 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
-            cadastrarMaquina();
-            abrirMain();
-            finish();
+            try {
+                validaCampos();
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("Aviso");
+                dlg.setMessage("Verfique se os campos estão preenchidos corretamente!");
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
+            }
+
         }else if(id == R.id.menuSair){
             SharedPreferences myPrefs = getSharedPreferences("MY", MODE_PRIVATE);
             SharedPreferences.Editor editor = myPrefs.edit();
@@ -113,21 +177,14 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
-
-            //Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
-
         }
         return true;
     }
-
 
     public void abrirMain() {
         Intent intent = new Intent(CadastroMaquinarioActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
+
 }

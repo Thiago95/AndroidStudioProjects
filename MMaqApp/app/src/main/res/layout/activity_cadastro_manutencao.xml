@@ -26,16 +26,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="17dp"/>
 
-            <TextView
-                android:id="@+id/txtViewCadCodFuncionario"
+            <EditText
+                android:id="@+id/edtCadTipoManut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="17dp"/>
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:hint="Tipo de manuteção: ex. troca de óleo"
+                android:inputType="textCapCharacters" />
 
             <EditText
                 android:id="@+id/edtCadDataAtualManutencao"
@@ -66,13 +62,6 @@
                 android:hint="Descrição da manutenção"
                 android:inputType="textLongMessage" />
 
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mastrar carro"
-                android:onClick="mantrarElemento"/>
         </LinearLayout>
 
     </ScrollView>

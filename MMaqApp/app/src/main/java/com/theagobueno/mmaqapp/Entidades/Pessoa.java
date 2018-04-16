@@ -13,9 +13,9 @@ public abstract class Pessoa {
     private String dataAdmissao;
     private String descricaoHabExp;
     private boolean cargo;
-    private int cpf;
-    private int nmrRegistroCNH;
-    private int telefone;
+    private String cpf;
+    private String nmrRegistroCNH;
+    private String telefone;
 
     public String getId() {
         return id;
@@ -81,27 +81,27 @@ public abstract class Pessoa {
         this.cargo = cargo;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public int getNmrRegistroCNH() {
+    public String getNmrRegistroCNH() {
         return nmrRegistroCNH;
     }
 
-    public void setNmrRegistroCNH(int nmrRegistroCNH) {
+    public void setNmrRegistroCNH(String nmrRegistroCNH) {
         this.nmrRegistroCNH = nmrRegistroCNH;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 }

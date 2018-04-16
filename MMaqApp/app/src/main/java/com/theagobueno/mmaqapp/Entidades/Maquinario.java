@@ -14,18 +14,19 @@ import java.util.Map;
 
 public class Maquinario {
 
-    private String id, marca, modelo, tipoMaquina, dataAquisicao;
-    private int potencia, valorAquisicao;
+    private String id, marca, modelo, tipoMaquina, dataAquisicao,valorAquisicao;
+    private Integer potencia;
+    //private Double valorAquisicao;
 
     public void salvar(){
         DatabaseReference refereceFirebase = ConfigFirebase.getFirebase();
         refereceFirebase.child("maquinario").child(getId()).setValue(this);    }
 
-    public int getValorAquisicao() {
+    public String getValorAquisicao() {
         return valorAquisicao;
     }
 
-    public void setValorAquisicao(int valorAquisicao) {
+    public void setValorAquisicao(String valorAquisicao) {
         this.valorAquisicao = valorAquisicao;
     }
 
@@ -61,11 +62,11 @@ public class Maquinario {
         this.id = id;
     }
 
-    public int getPotencia() {
+    public Integer getPotencia() {
         return potencia;
     }
 
-    public void setPotencia(int potencia) {
+    public void setPotencia(Integer potencia) {
         this.potencia = potencia;
     }
 
