@@ -39,7 +39,7 @@ public class ActvtTabFuncionario extends Fragment {
         View rootView = inflater.inflate(R.layout.actvt_tab_funcionario, container, false);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         listView = (ListView) rootView.findViewById(R.id.txtViewPdr);
-       /* eventoListFuncionario();
+        eventoListFuncionario();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
@@ -59,7 +59,7 @@ public class ActvtTabFuncionario extends Fragment {
                 Intent intent = new Intent(getActivity(), CadastroFuncionarioActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         return rootView;
     }
@@ -73,7 +73,6 @@ public class ActvtTabFuncionario extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> fincioraioList = new ArrayList<>();
-                //ArrayAdapter<String> maquinarioArrayAdapter;
                 fincioraioList.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     f = objDataSnapshot.getValue(Funcionario.class);

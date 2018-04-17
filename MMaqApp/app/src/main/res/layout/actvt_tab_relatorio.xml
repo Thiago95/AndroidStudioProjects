@@ -13,10 +13,10 @@
         android:id="@+id/btnFuncionario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnMaquina"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="81dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/colorButton"
         android:text="Gerar Relatório de Funcionário"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
@@ -25,10 +25,11 @@
         android:id="@+id/btnMaquina"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnManutencao"
+        android:layout_below="@+id/btnFuncionario"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/colorButton"
         android:text="Gerar Relatório de Maquinário"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
@@ -37,12 +38,15 @@
         android:id="@+id/btnManutencao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="102dp"
+        android:layout_below="@+id/btnMaquina"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/colorButton"
+        android:elegantTextHeight="false"
         android:text="Gerar Relatório de Manutenção"
         android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+
 
 </RelativeLayout>
