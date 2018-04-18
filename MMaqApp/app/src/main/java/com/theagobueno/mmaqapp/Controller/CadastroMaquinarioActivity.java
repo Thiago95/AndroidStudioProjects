@@ -80,6 +80,11 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
                 edtCadMaqValorAquisicao.requestFocus();
             }else if (res = !isValidaData(data)) {
                 edtCadMaqDataAquisicao.requestFocus();
+                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("Aviso");
+                dlg.setMessage("Não é possível cadastrar uma máquina que ainda não soi comprada!");
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
             }
             if (res){
                 AlertDialog.Builder dlg = new AlertDialog.Builder(this);
@@ -110,16 +115,16 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
     private boolean isValidaData(String data) throws ParseException {
         boolean var = false;
         Date dtAtual = new Date();
-        Date dtInserida = new SimpleDateFormat("dd/mm/yyyy").parse(data);
+        Date dtInserida = new SimpleDateFormat("dd/MM/yyyy").parse(data);
         Integer anoA = dtAtual.getYear();
         Integer mesA = dtAtual.getMonth();
         Integer diaA = dtAtual.getDay();
         Integer anoB = dtInserida.getYear();
         Integer mesB = dtInserida.getMonth();
         Integer diaB = dtInserida.getDay();
-        if (dtInserida.getYear() <= dtAtual.getYear()) {
-            if (dtInserida.getMonth() <= dtAtual.getMonth()) {
-                if (dtInserida.getDay() <= dtAtual.getDay()) {
+        if (anoB <= anoA) {
+            if (mesB <= mesA){
+                if (diaB <= diaA) {
                     var = true;
                 }
             }
