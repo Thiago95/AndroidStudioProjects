@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.Locale;
 
 public class CadastroFuncionarioActivity extends AppCompatActivity {
 
@@ -46,11 +47,13 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
 
     private Funcionario funcionario;
     private FirebaseAuth autentica;
+    private DatePickerFragment maskDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_funcionario);
+        Locale mLocale = new Locale("pt", "BR");
 
         edtCadFuncNome = (EditText)findViewById(R.id.edtCadFuncNome);
         edtCadFuncEndereco = (EditText)findViewById(R.id.edtCadFuncEndereco);
@@ -59,8 +62,10 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
         edtCadFuncSenha = (EditText)findViewById(R.id.edtCadFuncSenha);
         edtCadFuncConfirmaSenha = (EditText)findViewById(R.id.edtCadFuncConfirmaSenha);
         edtCadFuncCPF = (EditText)findViewById(R.id.edtCadFuncCPF);
+        edtCadFuncCPF.addTextChangedListener(maskDate.insertCpf(edtCadFuncCPF));
         edtCadFuncCNH = (EditText)findViewById(R.id.edtCadFuncCNH);
         edtCadFuncDataAdmissao = (EditText)findViewById(R.id.edtCadFuncDataAdmissao);
+        edtCadFuncDataAdmissao.addTextChangedListener(maskDate.insert("##/##/####", edtCadFuncDataAdmissao));
         edtCadFuncDescricao = (EditText)findViewById(R.id.edtCadFuncDescricao);
 
     }

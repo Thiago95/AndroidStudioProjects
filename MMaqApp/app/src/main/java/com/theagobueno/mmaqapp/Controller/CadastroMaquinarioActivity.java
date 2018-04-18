@@ -52,7 +52,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqTipo           = (EditText)findViewById(R.id.edtCadMaqTipo);
         edtCadMaqPotencia       = (EditText)findViewById(R.id.edtCadMaqPotencia);
         edtCadMaqValorAquisicao = (EditText)findViewById(R.id.edtCadMaqValorAquisicao);
-
         edtCadMaqValorAquisicao.addTextChangedListener(new DatePickerFragment(edtCadMaqValorAquisicao, mLocale));
         edtCadMaqDataAquisicao  = (EditText)findViewById(R.id.edtCadMaqDataAquisicao);
         edtCadMaqDataAquisicao.addTextChangedListener(maskDate.insert("##/##/####", edtCadMaqDataAquisicao));
