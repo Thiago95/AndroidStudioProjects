@@ -82,7 +82,7 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
                 edtCadMaqDataAquisicao.requestFocus();
                 AlertDialog.Builder dlg = new AlertDialog.Builder(this);
                 dlg.setTitle("Aviso");
-                dlg.setMessage("Não é possível cadastrar uma máquina que ainda não soi comprada!");
+                dlg.setMessage("Não é possível cadastrar uma máquina que ainda não foi comprada!");
                 dlg.setNeutralButton("OK", null);
                 dlg.show();
             }
