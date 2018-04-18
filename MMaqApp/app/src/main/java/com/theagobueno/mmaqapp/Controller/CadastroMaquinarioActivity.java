@@ -58,16 +58,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         edtCadMaqDataAquisicao.addTextChangedListener(maskDate.insert("##/##/####", edtCadMaqDataAquisicao));
     }
 
-    public void limparCampos() {
-        edtCadMaqMarca.setText("");
-        edtCadMaqMarca.requestFocus();
-        edtCadMaqModelo.setText("");
-        edtCadMaqTipo.setText("");
-        edtCadMaqPotencia.setText("");
-        edtCadMaqValorAquisicao.setText("");
-        edtCadMaqDataAquisicao.setText("");
-    }
-
     public void validaCampos() throws ParseException {
 
         try{
@@ -117,16 +107,23 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
         return result;
     }
 
-
-
     private boolean isValidaData(String data) throws ParseException {
         boolean var = false;
         Date dtAtual = new Date();
         Date dtInserida = new SimpleDateFormat("dd/mm/yyyy").parse(data);
-        if (dtInserida.before(dtAtual)) {
-            var = true;
+        Integer anoA = dtAtual.getYear();
+        Integer mesA = dtAtual.getMonth();
+        Integer diaA = dtAtual.getDay();
+        Integer anoB = dtInserida.getYear();
+        Integer mesB = dtInserida.getMonth();
+        Integer diaB = dtInserida.getDay();
+        if (dtInserida.getYear() <= dtAtual.getYear()) {
+            if (dtInserida.getMonth() <= dtAtual.getMonth()) {
+                if (dtInserida.getDay() <= dtAtual.getDay()) {
+                    var = true;
+                }
+            }
         }
-
         return var;
     }
 
