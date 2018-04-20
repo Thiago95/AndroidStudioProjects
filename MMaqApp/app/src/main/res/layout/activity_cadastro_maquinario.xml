@@ -60,7 +60,7 @@
                 android:id="@+id/edtCadMaqDataAquisicao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Data da Compra: Ex. 1/1/2001"
+                android:hint="Data da Compra"
                 android:inputType="date" />
 
 

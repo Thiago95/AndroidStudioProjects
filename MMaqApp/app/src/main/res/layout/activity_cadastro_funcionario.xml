@@ -80,7 +80,7 @@
                 android:id="@+id/edtCadFuncDataAdmissao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Data da Admissão: Ex. 1/1/2001"
+                android:hint="Data da Admissão"
                 android:inputType="date" />
 
             <EditText

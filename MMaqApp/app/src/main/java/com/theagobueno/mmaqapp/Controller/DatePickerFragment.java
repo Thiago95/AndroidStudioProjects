@@ -16,10 +16,75 @@ import java.util.Locale;
 
 public class DatePickerFragment implements TextWatcher{
 
-    //TODO cpf
-    private static final String maskCNPJ = "##.###.###/####-##";
-    private static final String maskCPF = "###.###.###-##";
+    //TODO telefone
+    private static final String maskFoneNove = "(##)# ####-####";
+    private static final String maskFone = "(##)####-####";
 
+    private static String getDefaultMaskFone(String str) {
+        String defaultMask = maskFone;
+        if (str.length() > 10){
+            defaultMask = maskFoneNove;
+        }
+        return defaultMask;
+    }
+
+    public static TextWatcher insertFone(final EditText editText) {
+        return new TextWatcher() {
+            boolean isUpdating;
+            String old = "";
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String str = DatePickerFragment.unmaskCpf(s.toString());
+                String mask;
+                String defaultMask = getDefaultMaskFone(str);
+                switch (str.length()) {
+                    case 10:
+                        mask = maskFone;
+                        break;
+                    case 11:
+                        mask = maskFoneNove;
+                        break;
+                    default:
+                        mask = defaultMask;
+                        break;
+                }
+
+                String mascara = "";
+                if (isUpdating) {
+                    old = str;
+                    isUpdating = false;
+                    return;
+                }
+                int i = 0;
+                for (char m : mask.toCharArray()) {
+                    if ((m != '#' && str.length() > old.length()) || (m != '#' && str.length() < old.length() && str.length() != i)) {
+                        mascara += m;
+                        continue;
+                    }
+
+                    try {
+                        mascara += str.charAt(i);
+                    } catch (Exception e) {
+                        break;
+                    }
+                    i++;
+                }
+                isUpdating = true;
+                editText.setText(mascara);
+                editText.setSelection(mascara.length());
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        };
+    }
+    //TODO mask cpf
+    private static final String maskCPF = "###.###.###-##";
+    private static final String maskCNPJ = "##.###.###/####-##";
 
     public static String unmaskCpf(String s) {
         return s.replaceAll("[^0-9]*", "");

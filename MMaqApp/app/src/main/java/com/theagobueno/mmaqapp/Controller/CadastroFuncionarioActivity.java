@@ -58,6 +58,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
         edtCadFuncNome = (EditText)findViewById(R.id.edtCadFuncNome);
         edtCadFuncEndereco = (EditText)findViewById(R.id.edtCadFuncEndereco);
         edtCadFuncTelefone = (EditText)findViewById(R.id.edtCadFuncTelefone);
+        edtCadFuncTelefone.addTextChangedListener(maskDate.insertFone(edtCadFuncTelefone));
         edtCadFuncEmail = (EditText)findViewById(R.id.edtCadFuncEmail);
         edtCadFuncSenha = (EditText)findViewById(R.id.edtCadFuncSenha);
         edtCadFuncConfirmaSenha = (EditText)findViewById(R.id.edtCadFuncConfirmaSenha);
@@ -129,6 +130,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
     }
 
     private boolean isValidaCampoCpf(String CPF){
+        CPF = maskDate.unmaskCpf(CPF);
         if (CPF.equals("00000000000") || CPF.equals("11111111111") ||
                 CPF.equals("22222222222") || CPF.equals("33333333333") ||
                 CPF.equals("44444444444") || CPF.equals("55555555555") ||
@@ -232,12 +234,15 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
                         throw task.getException();
                     }catch (FirebaseAuthWeakPasswordException e){
                         erroExecao = " Por favor informe uma senha mais forte, com no mínimo 8 caracteres, com letras e números.";
+                        edtCadFuncSenha.requestFocus();
                     }catch (FirebaseAuthInvalidCredentialsException e){
                         erroExecao = " Por favor informe um e-mail válido.";
+                        edtCadFuncEmail.requestFocus();
                     } catch (FirebaseAuthUserCollisionException e){
                         erroExecao = " E-mail já cadastrado no sistema!";
+                        edtCadFuncEmail.requestFocus();
                     } catch (Exception e) {
-                        erroExecao = " Erro ao efetuar cadastro!";
+                        erroExecao = " Erro ao efetuar cadastro, refaça o cadastro!";
                         e.printStackTrace();
                     }
                     AlertDialog.Builder dlg = new AlertDialog.Builder(CadastroFuncionarioActivity.this);
@@ -263,6 +268,12 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             funcionario.setDataAdmissao(edtCadFuncDataAdmissao.getText().toString());
             funcionario.setDescricaoHabExp(edtCadFuncDescricao.getText().toString());
             cadastrarFuncionario();
+        }else{
+            AlertDialog.Builder dlg = new AlertDialog.Builder(CadastroFuncionarioActivity.this);
+            dlg.setTitle("Aviso");
+            dlg.setMessage("Confira se as senhas inseridas são iguais!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
         }
     }
 
@@ -276,8 +287,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuAdicionar){
-            setDadosFuncionario();;
-            finish();
+            validaCampos();
         }else if(id == R.id.menuSair){
             SharedPreferences myPrefs = getSharedPreferences("MY", MODE_PRIVATE);
             SharedPreferences.Editor editor = myPrefs.edit();
@@ -287,7 +297,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
             Intent intent = new Intent(CadastroFuncionarioActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+           // finish();
 
             //Intent intent = new Intent(CadastroMaquinarioActivity.this, LoginActivity.class);
 
@@ -298,7 +308,7 @@ public class CadastroFuncionarioActivity extends AppCompatActivity {
     private void abrirMain() {
         Intent intent = new Intent(CadastroFuncionarioActivity.this, MainActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
 
