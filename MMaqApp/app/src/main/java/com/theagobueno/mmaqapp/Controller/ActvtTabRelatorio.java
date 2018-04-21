@@ -33,7 +33,7 @@ public class ActvtTabRelatorio extends Fragment {
             @Override
             public void onClick(View v) {
                 opcao = 3;
-                Intent intent = new Intent(getActivity(), MostraDados.class);
+                Intent intent = new Intent(getActivity(), OrdenaFuncio.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("opcao", opcao);
                 intent.putExtras(bundle);
@@ -45,7 +45,7 @@ public class ActvtTabRelatorio extends Fragment {
             @Override
             public void onClick(View v) {
                 opcao = 1;
-                Intent intent = new Intent(getActivity(), MostraDados.class);
+                Intent intent = new Intent(getActivity(), OrdenaMaqui.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("opcao", opcao);
                 intent.putExtras(bundle);
@@ -56,7 +56,7 @@ public class ActvtTabRelatorio extends Fragment {
             @Override
             public void onClick(View v) {
                 opcao = 2;
-                Intent intent = new Intent(getActivity(), MostraDados.class);
+                Intent intent = new Intent(getActivity(), OrdenaManu.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("opcao", opcao);
                 intent.putExtras(bundle);

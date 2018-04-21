@@ -33,7 +33,10 @@
         <activity android:name=".Controller.DlgMaqui" />
         <activity android:name=".Controller.DlgFunc" />
         <activity android:name=".Controller.DlgManu" />
-        <activity android:name=".Controller.MostraDados"></activity>
+        <activity android:name=".Controller.MostraDados" />
+        <activity android:name=".Controller.OrdenaMaqui" />
+        <activity android:name=".Controller.OrdenaManu" />
+        <activity android:name=".Controller.OrdenaFuncio"></activity>
     </application>
 
 </manifest>
