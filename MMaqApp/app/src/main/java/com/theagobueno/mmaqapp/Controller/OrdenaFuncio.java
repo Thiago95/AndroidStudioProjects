@@ -22,8 +22,6 @@ import java.util.List;
 
 public class OrdenaFuncio extends AppCompatActivity {
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
     private Button opcCinco;
     private Button opcSeis;
     private Button opcSete;
@@ -79,8 +77,6 @@ public class OrdenaFuncio extends AppCompatActivity {
     }
 
     private void listaFuncionario(Integer opcao) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
         Intent intent = new Intent(OrdenaFuncio.this, MostraDados.class);
         Bundle bundle = new Bundle();
         switch (opcao){

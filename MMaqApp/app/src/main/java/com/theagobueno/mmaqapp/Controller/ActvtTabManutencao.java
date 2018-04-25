@@ -90,7 +90,12 @@ public class ActvtTabManutencao extends AppCompatActivity {
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     Manutencao man = objDataSnapshot.getValue(Manutencao.class);
 
-                    manutencaoList.add("--------------\n"+man.getDataAtualManutencao() +" - "+ man.getCustoManutencao()+"\n"+man.getIdMaquinario()+"\n--------------");
+                    manutencaoList.add("--------------\n"+
+                            "|Tipo de Manutenção: \n| - "+man.getTipoManutencao()+
+                            "\n|Manutenção Realizada Dia: \n| - "+ man.getDataAtualManutencao() +
+                            "\n|Próxima Manutenção Deste Tipo: \n| - "+ man.getDataProximaMatencao() +
+                            "\n|Custo da Manutenção: \n| - "+ man.getCustoManutencao()+
+                            "\n--------------");
                     listMan.add(man.getIdManutencao());
 
                 }

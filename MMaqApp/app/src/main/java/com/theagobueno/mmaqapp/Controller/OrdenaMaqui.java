@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrdenaMaqui extends AppCompatActivity {
-
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
     private Button opcUm;
     private Button opcDois;
     private Button opcTres;
@@ -73,8 +70,6 @@ public class OrdenaMaqui extends AppCompatActivity {
     }
 
     public void listaMaquinario(Integer opcao){
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
         Intent intent = new Intent(OrdenaMaqui.this, MostraDados.class);
         Bundle bundle = new Bundle();
         switch (opcao){

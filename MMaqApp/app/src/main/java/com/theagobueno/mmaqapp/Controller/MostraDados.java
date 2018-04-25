@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.theagobueno.mmaqapp.Entidades.Funcionario;
+import com.theagobueno.mmaqapp.Entidades.Manutencao;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.R;
 
@@ -84,13 +85,20 @@ public class MostraDados extends AppCompatActivity {
                     func(orederCpf);
                     break;
                 case 10:
-
+                    Query orderTipoMan = databaseReference.child("manutencao").orderByChild("tipoManutencao");
+                    man(orderTipoMan);
                     break;
                 case 11:
-
+                    Query orderDtMan = databaseReference.child("manutencao").orderByChild("dataAtualManutencao");
+                    man(orderDtMan);
                     break;
                 case 12:
-
+                    Query orderCustoMan = databaseReference.child("manutencao").orderByChild("custoManutencao");
+                    man(orderCustoMan);
+                    break;
+                case 13:
+                    Query orderMaq = databaseReference.child("manutencao").orderByChild("idMaquinario");
+                    man(orderMaq);
                     break;
                 default:
                     AlertDialog.Builder dlg = new AlertDialog.Builder(this);
@@ -164,7 +172,31 @@ public class MostraDados extends AppCompatActivity {
         });
     }
 
+    public void man(Query order){
+        order.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> manutencaoList = new ArrayList<>();
+                manutencaoList.clear();
+                for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
+                    Manutencao man = objDataSnapshot.getValue(Manutencao.class);
+                    manutencaoList.add("--------------\n"+
+                            "|Tipo de Manutenção: \n| - "+man.getTipoManutencao()+
+                            "\n|Manutenção Realizada Dia: \n| - "+ man.getDataAtualManutencao() +
+                            "\n|Próxima Manutenção Deste Tipo: \n| - "+ man.getDataProximaMatencao() +
+                            "\n|Custo da Manutenção: \n| - "+ man.getCustoManutencao()+
+                            "\n--------------");
 
+                }
+                ArrayAdapter<String> maquinarioArrayAdapter = new ArrayAdapter<String>(MostraDados.this, android.R.layout.simple_list_item_1, manutencaoList);
+                listView.setAdapter(maquinarioArrayAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
 }

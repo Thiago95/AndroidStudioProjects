@@ -124,23 +124,45 @@ public class CadastroManutencaoActivity extends AppCompatActivity {
 
     private boolean isValidaDataDepois(String data2) throws ParseException {
         boolean var = false;
-        Date dtAtual = new Date();
-        Date dtInser = new SimpleDateFormat("dd/mm/yyyy").parse(data2);
-        if (dtInser.after(dtAtual)) {
+        if(data2 == null){
             var = true;
+        }else{
+            Date dtAtual = new Date();
+            Date dtInserida = new SimpleDateFormat("dd/MM/yyyy").parse(data2);
+            Integer anoA = dtAtual.getYear();
+            Integer mesA = dtAtual.getMonth();
+            Integer diaA = dtAtual.getDay();
+            Integer anoB = dtInserida.getYear();
+            Integer mesB = dtInserida.getMonth();
+            Integer diaB = dtInserida.getDay();
+            if (anoB > anoA) {
+                if (mesB > mesA){
+                    if (diaB > diaA) {
+                        var = true;
+                    }
+                }
+            }
         }
-
         return var;
     }
 
     private boolean isValidaDataAntes(String data) throws ParseException {
         boolean var = false;
         Date dtAtual = new Date();
-        Date dtInserida = new SimpleDateFormat("dd/mm/yyyy").parse(data);
-        if (dtInserida.before(dtAtual)) {
-            var = true;
+        Date dtInserida = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+        Integer anoA = dtAtual.getYear();
+        Integer mesA = dtAtual.getMonth();
+        Integer diaA = dtAtual.getDay();
+        Integer anoB = dtInserida.getYear();
+        Integer mesB = dtInserida.getMonth();
+        Integer diaB = dtInserida.getDay();
+        if (anoB <= anoA) {
+            if (mesB <= mesA){
+                if (diaB <= diaA) {
+                    var = true;
+                }
+            }
         }
-
         return var;
     }
 

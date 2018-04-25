@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.theagobueno.mmaqapp.Controller.OrdenaManu">
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    >
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/txtView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:text="Selecione a ordem desejada para gerar o relatório"
+        />
+    opcDez = (Button) findViewById(R.id.opcDez);
+    opcOnze = (Button) findViewById(R.id.opcOnze);
+    opcDoze = (Button) findViewById(R.id.opcDoze);
+    opcTreze = (Button) findViewById(R.id.opcTreze);
+    <Button
+        android:id="@+id/opcDez"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/colorButton"
+        android:text="Ordenar por Máquina"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+    <Button
+        android:id="@+id/opcOnze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/opcDez"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/colorButton"
+        android:text="Ordenar por Tipo de Manutenção"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+    <Button
+        android:id="@+id/opcDoze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/opcOnze"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/colorButton"
+        android:text="Ordenar por Data da Manutenção"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+    <Button
+        android:id="@+id/opcTreze"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/opcDoze"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/colorButton"
+        android:elegantTextHeight="false"
+        android:text="Ordenar por Preço da Manutenção"
+        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+
+
+
+</RelativeLayout>
