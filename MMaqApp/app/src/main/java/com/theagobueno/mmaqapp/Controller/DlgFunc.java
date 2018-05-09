@@ -44,10 +44,11 @@ public class DlgFunc extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.txtViewPdr);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String nome = bundle.getString("nome");
+        final String id = bundle.getString("id");
+        final String nome = bundle.getString("nome");
         TextView txtResultado = (TextView) findViewById(R.id.txtResultado);
         txtResultado.setText(nome);
-        eventoListFuncionario();
+        eventoListFuncionario(id);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -93,12 +94,12 @@ public class DlgFunc extends AppCompatActivity {
         d.show();
     }
 
-    public void eventoListFuncionario(){
+    public void eventoListFuncionario(String i){
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
-        databaseReference.child("usuario").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("usuario").child(i).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -107,7 +108,7 @@ public class DlgFunc extends AppCompatActivity {
                 String temp2;
                 String temp3;
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
-                    Funcionario f = objDataSnapshot.getValue(Funcionario.class);
+                    f = objDataSnapshot.getValue(Funcionario.class);
 
                     fincioraioList.add(f.getNome());
                     fincioraioList.add(f.getEnderco());

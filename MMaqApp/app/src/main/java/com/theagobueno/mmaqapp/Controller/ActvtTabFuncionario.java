@@ -32,6 +32,8 @@ public class ActvtTabFuncionario extends Fragment {
 
     private ListView listView;
     private Funcionario f;
+    List<String> listFun = new ArrayList<>();
+    List<String> funcioraioList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -45,7 +47,8 @@ public class ActvtTabFuncionario extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), DlgFunc.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("nome", f.getNome());
+                bundle.putString("id",listFun.get(i));
+                bundle.putString("nome", funcioraioList.get(i));
                 intent.putExtras(bundle);
 
                 startActivity(intent);
@@ -72,15 +75,16 @@ public class ActvtTabFuncionario extends Fragment {
         databaseReference.child("usuario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> fincioraioList = new ArrayList<>();
-                fincioraioList.clear();
+                funcioraioList.clear();
+                listFun.clear();
                 for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
                     f = objDataSnapshot.getValue(Funcionario.class);
 
-                    fincioraioList.add(f.getNome());
+                    funcioraioList.add(f.getNome());
+                    listFun.add(f.getId());
 
                 }
-                ArrayAdapter<String> funcionarioArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, fincioraioList);
+                ArrayAdapter<String> funcionarioArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, funcioraioList);
                 listView.setAdapter(funcionarioArrayAdapter);
             }
 
