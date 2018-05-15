@@ -4,8 +4,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +18,7 @@ public class Maquinario {
 
     private String id, marca, modelo, tipoMaquina, dataAquisicao,valorAquisicao;
     private Integer potencia;
+    List<String> arrayList = new ArrayList<>();
     //private Double valorAquisicao;
 
     public void salvar(){
@@ -28,6 +31,14 @@ public class Maquinario {
 
     public void setValorAquisicao(String valorAquisicao) {
         this.valorAquisicao = valorAquisicao;
+    }
+
+    public ArrayList getArrayList() {
+        return (ArrayList) arrayList;
+    }
+
+    public void setArrayList(ArrayList arrayList) {
+        this.arrayList = arrayList;
     }
 
     public String getMarca() {

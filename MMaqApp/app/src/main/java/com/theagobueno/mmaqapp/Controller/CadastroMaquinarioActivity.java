@@ -1,29 +1,20 @@
 package com.theagobueno.mmaqapp.Controller;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Maquinario;
 import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,11 +70,6 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
                 edtCadMaqValorAquisicao.requestFocus();
             }else if (res = !isValidaData(data)) {
                 edtCadMaqDataAquisicao.requestFocus();
-                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-                dlg.setTitle("Aviso");
-                dlg.setMessage("Não é possível cadastrar uma máquina que ainda não foi comprada!");
-                dlg.setNeutralButton("OK", null);
-                dlg.show();
             }
             if (res){
                 AlertDialog.Builder dlg = new AlertDialog.Builder(this);
@@ -125,8 +111,26 @@ public class CadastroMaquinarioActivity extends AppCompatActivity {
             if (mesB <= mesA){
                 if (diaB <= diaA) {
                     var = true;
+                }else{
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                    dlg.setTitle("Aviso");
+                    dlg.setMessage("Não é possivel cadastrar uma maquina que ainda não foi comprada, verifique o dia da compra!");
+                    dlg.setNeutralButton("OK", null);
+                    dlg.show();
                 }
+            }else{
+                AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+                dlg.setTitle("Aviso");
+                dlg.setMessage("Não é possivel cadastrar uma maquina que ainda não foi comprada, verifique o mês da compra!");
+                dlg.setNeutralButton("OK", null);
+                dlg.show();
             }
+        }else{
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Aviso");
+            dlg.setMessage("Não é possivel cadastrar uma maquina que ainda não foi comprada, verifique o ano da compra!");
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
         }
         return var;
     }

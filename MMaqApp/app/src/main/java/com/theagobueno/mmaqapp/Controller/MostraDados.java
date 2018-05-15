@@ -62,13 +62,13 @@ public class MostraDados extends AppCompatActivity {
         if(sdk_Version < android.os.Build.VERSION_CODES.HONEYCOMB) {
             android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             clipboard.setText(textSelect.toString());   // Assuming that you are copying the text from a TextView
-            Toast.makeText(getApplicationContext(), "Copied to Clipboard!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Texto Copiado!", Toast.LENGTH_SHORT).show();
         }
         else {
             android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             android.content.ClipData clip = android.content.ClipData.newPlainText("Text Label", textSelect.toString());
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(getApplicationContext(), "Copied to Clipboard!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Texto Copiado!", Toast.LENGTH_SHORT).show();
         }
     }
 

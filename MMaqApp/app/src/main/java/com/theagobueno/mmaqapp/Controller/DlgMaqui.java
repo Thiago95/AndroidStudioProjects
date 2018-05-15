@@ -27,81 +27,91 @@ import com.theagobueno.mmaqapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DlgMaqui extends AppCompatActivity {
 
     private ListView listView;
-    private Dialog d;
-    private Maquinario m;
-    List<String> maquinarioList = new ArrayList<>();
-    List<String> listMaq = new ArrayList<>();
-    String temp;
-    String temp2;
+    List<String> list = new ArrayList<>();
+    List<String> listMaqui = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dlg_maqui);
+
         listView = (ListView) findViewById(R.id.txtViewPdr);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+
         final String id = bundle.getString("id");
-        eventoListMaquinario(id);
 
-        //TextView txtResultado = (TextView) findViewById(R.id.txtResultado);
+        eventListDados(id);
+        setListView(list);
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                inputDialog(i);
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+
+                inputDialog(listMaqui.get(i), i);
+                /*Bundle bundle = new Bundle();
+                bundle.putString("id",listMaqui.get(i));
+                Intent intent = new Intent(DlgMaqui.this, DlgMaqui.class);
+                intent.putExtras(bundle);
+                startActivity(intent);*/
             }
-        });*/
+        });
+
 
 
     }
 
-    private void eventoListMaquinario(String i) {
-
-        FirebaseDatabase firebaseDatabase;
-        DatabaseReference databaseReference;
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        databaseReference.child("maquinario").child(i).addValueEventListener(new ValueEventListener() {
+    private void eventListDados(String id) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        databaseReference.child("maquinario").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                maquinarioList.clear();
-                for (DataSnapshot objDataSnapshot:dataSnapshot.getChildren()){
-                    m = objDataSnapshot.getValue(Maquinario.class);
-                    maquinarioList.add(m.getMarca());
-                    maquinarioList.add(m.getModelo());
-                    maquinarioList.add(m.getTipoMaquina());
-                    maquinarioList.add(String.valueOf(m.getPotencia()));
-                    maquinarioList.add(m.getValorAquisicao());
-                    maquinarioList.add(m.getDataAquisicao());
-                }
-                ArrayAdapter<String> listMaqAdapter = new ArrayAdapter<String>(DlgMaqui.this, android.R.layout.simple_list_item_1, maquinarioList);
-                listView.setAdapter(listMaqAdapter);
+                Maquinario maqui = dataSnapshot.getValue(Maquinario.class);
+                list.add("Marca: "+maqui.getMarca());
+                list.add("Modelo: "+maqui.getModelo());
+                list.add("Tipo: "+maqui.getTipoMaquina());
+                list.add("Potência: "+String.valueOf(maqui.getPotencia()));
+                list.add("Preço: "+maqui.getValorAquisicao());
+                list.add("Data Compra: "+maqui.getDataAquisicao());
+                listMaqui.add(maqui.getMarca());
+                listMaqui.add(maqui.getModelo());
+                listMaqui.add(maqui.getTipoMaquina());
+                listMaqui.add(String.valueOf(maqui.getPotencia()));
+                listMaqui.add(maqui.getValorAquisicao());
+                listMaqui.add(maqui.getDataAquisicao());
+
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
     }
 
-    private void inputDialog(final int posicao) {
-        Intent intent = getIntent();
+    private void setListView(List<String> listMaqui) {
+        ArrayAdapter<String> listMaqAdapter = new ArrayAdapter<String>(DlgMaqui.this, android.R.layout.simple_list_item_1, listMaqui);
+        listView.setAdapter(listMaqAdapter);
+    }
+
+    private void inputDialog(String list, Integer posicao) {
+        /*Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String marca = bundle.getString("marca");
         String modelo = bundle.getString("modelo");
         int potencia = bundle.getInt("potencia");
-        int valor = bundle.getInt("valor");
-        d = new Dialog(DlgMaqui.this);
+        int valor = bundle.getInt("valor");*/
+        Dialog d = new Dialog(DlgMaqui.this);
         d.setTitle("Editar Máquina");
         d.setContentView(R.layout.input_dialogo);
         final EditText marcaText = (EditText) d.findViewById(R.id.edtCadMaqMarca);
-        final EditText modeloText = (EditText) d.findViewById(R.id.edtCadMaqModelo);
-        final EditText potenciaText = (EditText) d.findViewById(R.id.edtCadMaqPotencia);
-        final EditText valorText = (EditText) d.findViewById(R.id.edtCadMaqValor);
+
         Button updateBtn= (Button) d.findViewById(R.id.updateBtn);
         Button deleteBtn= (Button) d.findViewById(R.id.deleteBtn);
         if(posicao== -1) {
@@ -110,14 +120,12 @@ public class DlgMaqui extends AppCompatActivity {
         }else {
             updateBtn.setEnabled(true);
             deleteBtn.setEnabled(true);
-            marcaText.setText(marca);
-            modeloText.setText(modelo);
-            potenciaText.setText(""+potencia);
-            valorText.setText(""+valor);
+            marcaText.setText(list);
         }
 
         d.show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

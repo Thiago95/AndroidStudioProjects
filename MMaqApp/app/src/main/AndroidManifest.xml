@@ -36,7 +36,8 @@
         <activity android:name=".Controller.MostraDados" />
         <activity android:name=".Controller.OrdenaMaqui" />
         <activity android:name=".Controller.OrdenaManu" />
-        <activity android:name=".Controller.OrdenaFuncio"></activity>
+        <activity android:name=".Controller.OrdenaFuncio" />
+        <activity android:name=".ActvBarraProgresso"></activity>
     </application>
 
 </manifest>

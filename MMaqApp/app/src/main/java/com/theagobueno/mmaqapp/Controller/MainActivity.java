@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.theagobueno.mmaqapp.ActvBarraProgresso;
 import com.theagobueno.mmaqapp.Helper.EstadoApp;
 import com.theagobueno.mmaqapp.R;
 
@@ -32,36 +33,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mProgressBar.setVisibility(View.VISIBLE);
-                while (mProgressStatus < 100){
-                    mProgressStatus++;
-                    android.os.SystemClock.sleep(50);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setProgress(mProgressStatus);
-                        }
-                    });
-                }
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mProgressBar.setVisibility(View.INVISIBLE);
-                        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                        setSupportActionBar(toolbar);
-                        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-                        mViewPager = (ViewPager)findViewById(R.id.container);
-                        setupViewPager(mViewPager);
-                        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-                        tabLayout.setupWithViewPager(mViewPager);
-                    }
-                });
-            }
-        }).start();
+        ProgressBar progress = (ProgressBar) findViewById(R.id.progressbar);
+        TextView texto = (TextView) findViewById(R.id.texto);
+        progress.setVisibility(View.INVISIBLE);
+        ActvBarraProgresso barra = new ActvBarraProgresso(LoginActivity.class, progress, texto);
+        barra.execute();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager)findViewById(R.id.container);
+        setupViewPager(mViewPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     private void setupViewPager(ViewPager viewPager){

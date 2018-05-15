@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.theagobueno.mmaqapp.ActvBarraProgresso;
 import com.theagobueno.mmaqapp.DAO.ConfigFirebase;
 import com.theagobueno.mmaqapp.Entidades.Administrador;
 import com.theagobueno.mmaqapp.Helper.EstadoApp;
@@ -26,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnEntrar;
     private FirebaseAuth autenticacao;
     private Administrador administrador;
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -54,9 +58,15 @@ public class LoginActivity extends AppCompatActivity {
         btnEntrar = (Button) findViewById(R.id.btnEntrar);
 
 
+
         btnEntrar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+                TextView texto = (TextView) findViewById(R.id.texto);
+
+                ActvBarraProgresso barra = new ActvBarraProgresso(LoginActivity.class, progress, texto);
+                barra.execute();
                 if (!edtEmail.getText().toString().equals("") && !edtSenha.getText().toString().equals("")){
 
                     administrador = new Administrador();
